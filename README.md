@@ -1,7 +1,7 @@
 LiskCollectible
 ---
 
-Turn any document bundle into a ownable NFT backed by lisk.
+Turn any collection of files into a sellable NFT backed by lisk.
 
 ## Inspiration
 With the recent surge of interest in NFT's.
@@ -13,14 +13,15 @@ Enables anyone to sell the rights to a group of documents or property as an NFT 
 
 ## How we built it
 * Lisk: Backend for NFT issuance and enforcement.
-* Textile: IPFS packaging/bundling of content
-* Unlock Protocol: Gating of assets
+* Textile: IPFS packaging/bundling of content.
 
 ## Challenges we ran into
 * Integrating the Lisk SDK into a new web/backend application.
 
 ## Accomplishments that we're proud of
 It works
+
+
 ## What we learned
 * How to 
 

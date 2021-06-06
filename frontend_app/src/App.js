@@ -1,11 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Link as RouterLink,
-  Switch,
-  Route,
-} from "react-router-dom";
-import { Link, capitalize } from "@material-ui/core";
+import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
 import * as api from "./api";
 import { NodeInfoContext, nodeInfoContextDefaultValue } from "./context";
 
@@ -23,6 +17,7 @@ import logo from "./assets/logo.png";
 
 import "antd/dist/antd.css";
 import "./App.css";
+import { capitalize } from "./utils";
 
 const { Header, Footer, Content } = Layout;
 
@@ -63,10 +58,12 @@ function App() {
     fetchData();
   }, []);
 
+  const openTransfer = () => setOpenDialog("TransferFundsDialog");
+
   return (
     <Fragment>
       <NodeInfoContext.Provider value={nodeInfoState}>
-        <Router>
+        <BrowserRouter>
           <Layout>
             <Header>
               <Menu
@@ -93,38 +90,29 @@ function App() {
                   );
                 })}
                 <Menu.Item
-                  key="/transfer"
-                  onClick={() => setOpenDialog("TransferFundsDialog")}
-                >
-                  Transfer
-                </Menu.Item>
-                <Menu.Item
                   key="/account"
                   onClick={() => setOpenDialog("CreateAccountDialog")}
                 >
-                  Account
+                  Create Account
                 </Menu.Item>
-                <Menu.Item
-                  key="/create"
-                  onClick={() => setOpenDialog("CreateNFTTokenDialog")}
-                >
-                  NFT
-                </Menu.Item>
-                <Link to={"/search"}>Search</Link>
               </Menu>
             </Header>
             <Content>
-              <Switch>
-                <Route path="/" exact>
-                  <HomePage />
-                </Route>
-                <Route path="/search" exact component={Discover} />
-                <Route path="/sell" exact component={SellStream} />
-                <Route path="/access" exact component={Access} />
+              <div className="content">
+                <Switch>
+                  <Route path="/" exact>
+                    <HomePage />
+                  </Route>
+                  <Route path="/search" exact>
+                    <Discover openTransfer={openTransfer} />
+                  </Route>
+                  <Route path="/sell" exact component={SellStream} />
+                  <Route path="/access" exact component={Access} />
 
-                <Route path="/accounts/:address" component={AccountPage} />
-                <Route path="/transactions" component={TransactionsPage} />
-              </Switch>
+                  <Route path="/accounts/:address" component={AccountPage} />
+                  <Route path="/transactions" component={TransactionsPage} />
+                </Switch>
+              </div>
             </Content>
             <Footer></Footer>
           </Layout>
@@ -149,7 +137,7 @@ function App() {
               setOpenDialog(null);
             }}
           />
-        </Router>
+        </BrowserRouter>
       </NodeInfoContext.Provider>
     </Fragment>
   );

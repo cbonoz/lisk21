@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import NFTToken from "./NFTToken";
 import { Grid } from "@material-ui/core";
 import { fetchAllNFTTokens } from "../api";
+import About from "./About";
 
 function HomePage() {
   const [NFTAccounts, setNFTAccounts] = useState([]);
@@ -15,6 +16,7 @@ function HomePage() {
 
   return (
     <Fragment>
+      <About />
       <Grid container spacing={4}>
         {NFTAccounts.map((item) => (
           <Grid item md={4}>

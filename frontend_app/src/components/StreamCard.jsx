@@ -8,16 +8,20 @@ import {
 } from "@ant-design/icons";
 import { LOCK_ADDRESS } from "./Discover/util";
 import { Modal, Button } from "antd";
+import TransferFundsDialog from "./dialogs/TransferFundsDialog";
 
 const { Meta } = Card;
 
 const defaultImage =
   "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png";
-function StreamCard({ data }) {
+function StreamCard({ data, openTransfer }) {
+  const [openDialog, setOpenDialog] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const onClick = () => {
-    console.log("purchase")
+    console.log("purchase");
+    window.selectedItem = data;
+    openTransfer();
     // TODO: show purchase popup
   };
   const viewInfo = () => {
@@ -48,6 +52,7 @@ function StreamCard({ data }) {
         title={data.userName}
         description={`${data.title}. Purchase or preview this stream.`}
       />
+
       <Modal title={data.title} visible={isModalVisible} onOk={handleOk}>
         <h4>{data.userName}</h4>
         <p>

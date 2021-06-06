@@ -53,6 +53,7 @@ export default function TransferFundsDialog(props) {
         <DialogTitle id="alert-dialog-title">{"Transfer Funds"}</DialogTitle>
         <DialogContent>
           <form className={classes.root} noValidate autoComplete="off">
+            {JSON.stringify(window.selectedItem || {})}
             <TextField
               label="Recipient Address"
               value={data.recipientAddress}
@@ -102,4 +103,3 @@ export default function TransferFundsDialog(props) {
     </Fragment>
   );
 }
-

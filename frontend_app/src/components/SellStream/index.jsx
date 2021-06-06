@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { StreamDropzone } from "../StreamDropzone";
 import { Input, Button, Steps, Layout } from "antd";
 import { createBucketWithFiles } from "../../utils/bucket";
 import { addCard } from "../Discover/util";
+import * as api from "../../api";
+import { createNFTToken } from "../../utils/transactions/create_nft_token";
+import { TextField } from "@material-ui/core";
+import { NodeInfoContext } from "../../context";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -13,14 +17,15 @@ const LAST_STEP = 3;
 
 function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
   const [currentStep, setCurrentStep] = useState(0);
+  const nodeInfo = useContext(NodeInfoContext);
 
-  useEffect(() => {
-    console.log("isLoggedIn", isLoggedIn);
-    if (isLoggedIn && currentStep === 0) updateStep(1);
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   console.log("isLoggedIn", isLoggedIn);
+  //   if (isLoggedIn && currentStep === 0) updateStep(1);
+  // }, [isLoggedIn]);
 
   const [files, setFiles] = useState([]);
-  const [info, setInfo] = useState({
+  const [data, setData] = useState({
     userName: "cbono",
     title: "LiveStream Broadcast from 5/29",
     eth: 0.01,
@@ -28,10 +33,9 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const clearInfo = () => setInfo({});
-
-  const updateInfo = (update) => {
-    setInfo({ ...info, ...update });
+  const handleChange = (event) => {
+    event.persist();
+    setData({ ...data, [event.target.name]: event.target.value });
   };
 
   const updateStep = async (offset) => {
@@ -44,11 +48,11 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
       setLoading(true);
 
       try {
-        const res = await createBucketWithFiles(info.title, files);
+        const res = await createBucketWithFiles(data.title, files);
         setResult(res);
 
         const card = {
-          ...info,
+          ...data,
           createdAt: new Date(),
           key: res.bucketKey,
         };
@@ -69,44 +73,44 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
 
   const getBody = () => {
     switch (currentStep) {
-      case 0: // confirm login
+      case 0: // data
         return (
-          <div>
-            <h2 className="sell-header">Login</h2>
-            <p>
-              In order to create a listing, you must login with your metamask or
-              wallet account. Click 'connect' in the top right to begin.
-            </p>
-          </div>
-        );
-      case 1: // info
-        return (
-          <div className="info-section">
+          <div className="data-section">
             <h2 className="sell-header">What are you listing?</h2>
-            <Input
-              addonBefore={"Stream(s)"}
-              placeholder="Enter name of listing"
-              value={info.title}
-              onChange={(e) => updateInfo({ title: e.target.value })}
+            <TextField
+              label="Name"
+              value={data.name}
+              name="name"
+              onChange={handleChange}
+              fullWidth
             />
-            <Input
-              addonBefore={"DisplayName"}
-              placeholder="Enter listing user name"
-              value={info.userName}
-              onChange={(e) => updateInfo({ userName: e.target.value })}
+            <TextField
+              label="Initial Token value"
+              value={data.initValue}
+              name="initValue"
+              onChange={handleChange}
+              fullWidth
             />
-            <Input
-              addonBefore={"Price (eth)"}
-              placeholder="Enter eth price"
-              value={info.eth}
-              onChange={(e) => updateInfo({ eth: e.target.value })}
+            <TextField
+              label="Minimum Purchase Margin (0 - 100)"
+              value={data.minPurchaseMargin}
+              name="minPurchaseMargin"
+              onChange={handleChange}
+              fullWidth
             />
-            <Input
-              addonBefore={"Image"}
-              addonAfter={"A default will be used if blank"}
-              placeholder="Enter listing image or thumbnail url (optional)"
-              value={info.imgUrl}
-              onChange={(e) => updateInfo({ imgUrl: e.target.value })}
+            <TextField
+              label="Fee"
+              value={data.fee}
+              name="fee"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="Passphrase"
+              value={data.passphrase}
+              name="passphrase"
+              onChange={handleChange}
+              fullWidth
             />
             <Input
               addonBefore={"Address"}
@@ -121,13 +125,13 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
             </p>
           </div>
         );
-      case 2: // upload
+      case 1: // upload
         return (
           <div>
             <StreamDropzone files={files} setFiles={setFiles} />
           </div>
         );
-      case 3: // done
+      case 2: // done
         return (
           <div className="complete-section">
             <h2 className="sell-header">Complete!</h2>
@@ -139,11 +143,11 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
                 </li>
               );
             })}
-            <h3>Listing information</h3>
-            {Object.keys(info).map((k) => {
+            <h3>Listing datarmation</h3>
+            {Object.keys(data).map((k) => {
               return (
                 <li key={k}>
-                  {k}: {JSON.stringify(info[k]).replaceAll('"', "")}
+                  {k}: {JSON.stringify(data[k]).replaceAll('"', "")}
                 </li>
               );
             })}
@@ -158,41 +162,45 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
     }
   };
 
+  const handleSend = async (event) => {
+    event.preventDefault();
+
+    const res = await createNFTToken({
+      ...data,
+      networkIdentifier: nodeInfo.networkIdentifier,
+      minFeePerByte: nodeInfo.minFeePerByte,
+    });
+    await api.sendTransactions(res.tx);
+  };
+
   return (
     <div className="content">
       <h1>List new item in marketplace</h1>
-      <Header>
-        <Steps current={currentStep}>
-          <Step title="Login" description="Authenticate." />
-          <Step title="Information" description="What are you listing?" />
-          <Step title="Upload" description="Add files for sale." />
-          <Step title="Done" description="View your listing." />
-        </Steps>
-      </Header>
-      <Content>
-        <div className="sell-area">{getBody()}</div>
-      </Content>
-      <Footer>
-        {(currentStep !== 0 || (currentStep !== 1 && !isLoggedIn)) && (
-          <Button
-            disabled={loading}
-            type="primary"
-            onClick={() => updateStep(-1)}
-          >
-            Previous
-          </Button>
-        )}
-        {currentStep < LAST_STEP && (
-          <Button
-            disabled={loading}
-            loading={loading}
-            type="primary"
-            onClick={() => updateStep(1)}
-          >
-            {currentStep === LAST_STEP - 1 ? "Done" : "Next"}
-          </Button>
-        )}
-      </Footer>
+      <Steps current={currentStep}>
+        <Step title="Information" description="What are you listing?" />
+        <Step title="Upload" description="Add files and content for purchase." />
+        <Step title="Done" description="View your listing." />
+      </Steps>
+      <div className="sell-area">{getBody()}</div>
+      {currentStep !== 0 && (
+        <Button
+          disabled={loading}
+          type="primary"
+          onClick={() => updateStep(-1)}
+        >
+          Previous
+        </Button>
+      )}
+      {currentStep < LAST_STEP && (
+        <Button
+          disabled={loading}
+          loading={loading}
+          type="primary"
+          onClick={() => updateStep(1)}
+        >
+          {currentStep === LAST_STEP - 1 ? "Done" : "Next"}
+        </Button>
+      )}
     </div>
   );
 }

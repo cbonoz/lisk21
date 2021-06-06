@@ -6,7 +6,9 @@
   margin: 0 auto;
   max-width: 1000px;
   margin-top: 20px;
+  min-height: 60vh;
 }
+
 .sell-area {
   padding: 20px;
   /* border-left: 1px solid lightgray;
@@ -19,9 +21,15 @@
   margin-top: 20px;
 }
 
+.ant-layout-footer {
+  min-height: 25vh;
+}
+
 .hero-logo {
-  margin-top: 100px;
-  margin-bottom: 100px;
+  padding-top: 200px;
+  padding-bottom: 100px;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .header-logo {

@@ -39,7 +39,7 @@ function Discover(props) {
       {cards.map((x, i) => {
         return (
           <span key={i}>
-            <StreamCard data={x} />;
+            <StreamCard data={x} openTransfer={props.openTransfer} />;
           </span>
         );
       })}
