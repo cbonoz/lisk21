@@ -12,6 +12,7 @@ import { NodeInfoContext } from "../../context";
 import { purchaseNFTToken } from "../../utils/transactions/purchase_nft_token";
 import * as api from "../../api";
 import { transactions } from "@liskhq/lisk-client";
+import { PURCHASE_TOKEN_INFO } from "../../utils/constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,9 +26,9 @@ export default function PurchaseNFTTokenDialog(props) {
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
   const currentValue = parseFloat(
-    transactions.convertBeddowsToLSK(props.token.value)
+    transactions.convertBeddowsToLSK(props.token.value || "0")
   );
-  const minPurchaseMargin = parseFloat(props.token.minPurchaseMargin);
+  const minPurchaseMargin = parseFloat(props.token.minPurchaseMargin || "0");
   const minPurchaseValue =
     currentValue + (currentValue * minPurchaseMargin) / 100.0;
 
@@ -56,23 +57,18 @@ export default function PurchaseNFTTokenDialog(props) {
     props.handleClose();
   };
 
+  const title = `Purchase :${data.name}`;
+
   return (
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose}>
-        <DialogTitle id="alert-dialog-title">
-          {"Purchase NFT"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         <DialogContent>
+          <p>{PURCHASE_TOKEN_INFO}</p>
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
-              label="Token Name"
-              value={data.name}
-              name="name"
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
               label="Token ID"
+              disabled
               value={data.nftId}
               name="nftId"
               onChange={handleChange}
@@ -93,6 +89,7 @@ export default function PurchaseNFTTokenDialog(props) {
               onChange={handleChange}
               fullWidth
             />
+            <hr />
             <TextField
               label="Passphrase"
               value={data.passphrase}

@@ -7,6 +7,7 @@ import {
   Link,
   Divider,
   Button,
+  CardMedia,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
@@ -16,6 +17,10 @@ import PurchaseNFTTokenDialog from "./dialogs/PurchaseNFTTokenDialog";
 import TransferNFTDialog from "./dialogs/TransferNFTDialog";
 
 const useStyles = makeStyles((theme) => ({
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+  },
   propertyList: {
     listStyle: "none",
 
@@ -40,15 +45,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const defaultImage =
+  "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png";
+
 export default function NFTToken(props) {
   const classes = useStyles();
   const [openPurchase, setOpenPurchase] = useState(false);
   const [openTransfer, setOpenTransfer] = useState(false);
-  const base32UIAddress = cryptography.getBase32AddressFromAddress(Buffer.from(props.item.ownerAddress, 'hex'), 'lsk').toString('binary');
+  const base32UIAddress = cryptography
+    .getBase32AddressFromAddress(
+      Buffer.from(props.item.ownerAddress, "hex"),
+      "lsk"
+    )
+    .toString("binary");
+  const {
+    tokenHistory,
+    name,
+    imgUrl,
+    description,
+    bucketKey,
+    value,
+    minPurchaseMargin,
+  } = props.item;
+  const minPurchasePrice =
+    parseFloat(transactions.convertBeddowsToLSK(value)) +
+    parseFloat(minPurchaseMargin);
   return (
     <Card>
+      <CardMedia
+        className={classes.media}
+        image={imgUrl || defaultImage}
+        title={name}
+      />
       <CardContent>
-        <Typography variant="h6">{props.item.name}</Typography>
+        <Typography variant="h6">{name}</Typography>
         <Divider />
         <dl className={classes.propertyList}>
           <li>
@@ -56,12 +86,8 @@ export default function NFTToken(props) {
             <dd>{props.item.id}</dd>
           </li>
           <li>
-            <dt>Token value</dt>
-            <dd>{transactions.convertBeddowsToLSK(props.item.value)}</dd>
-          </li>
-          <li>
-            <dt>Minimum Purchase Margin</dt>
-            <dd>{props.item.minPurchaseMargin}</dd>
+            <dt>Minimum Purchase Price</dt>
+            <dd>{minPurchasePrice}</dd>
           </li>
           {!props.minimum && (
             <li>
@@ -77,9 +103,9 @@ export default function NFTToken(props) {
             </li>
           )}
         </dl>
-        <Typography variant="h6">NFT History</Typography>
-        <Divider />
-        {props.item.tokenHistory.map((base32UIAddress) => (
+        {/* <Typography variant="h6">NFT History</Typography> */}
+        {/* <Divider /> */}
+        {/* {props.item.tokenHistory.map((base32UIAddress) => (
           <dl className={classes.propertyList}>
             <li>
               <dd>
@@ -92,8 +118,7 @@ export default function NFTToken(props) {
               </dd>
             </li>
           </dl>
-        ))}
-
+        ))} */}
       </CardContent>
       <CardActions>
         <>
@@ -123,7 +148,7 @@ export default function NFTToken(props) {
                 setOpenPurchase(true);
               }}
             >
-              Purchase NFT
+              Purchase NFT bundle
             </Button>
             <PurchaseNFTTokenDialog
               open={openPurchase}

@@ -13,7 +13,11 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const { Step } = Steps;
 
-const LAST_STEP = 3;
+const EX_PHRASE =
+  "shrug win match scrap offer strong acid visa toast energy salt truth";
+const EX_ADDRESS = "lsk3yp2ex874hnp3gruhk6mo6vaobnnwn94ok3ovt";
+
+const LAST_STEP = 2;
 
 function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
   const [currentStep, setCurrentStep] = useState(0);
@@ -26,16 +30,34 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
 
   const [files, setFiles] = useState([]);
   const [data, setData] = useState({
-    userName: "cbono",
-    title: "LiveStream Broadcast from 5/29",
-    eth: 0.01,
+    name: "cbono",
+    initValue: "100",
+    minPurchaseMargin: "100",
+    fee: "10",
+    description: "",
+    imgUrl: "",
+    passphrase: EX_PHRASE,
+    ownerAddress: EX_ADDRESS,
   });
+
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(false);
 
   const handleChange = (event) => {
     event.persist();
     setData({ ...data, [event.target.name]: event.target.value });
+  };
+
+  const createNFT = async (bucketKey) => {
+    const body = {
+      ...data,
+      bucketKey,
+      networkIdentifier: nodeInfo.networkIdentifier,
+      minFeePerByte: nodeInfo.minFeePerByte,
+    };
+    console.log("create", body);
+    const res = await createNFTToken(body);
+    await api.sendTransactions(res.tx);
   };
 
   const updateStep = async (offset) => {
@@ -48,8 +70,11 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
       setLoading(true);
 
       try {
-        const res = await createBucketWithFiles(data.title, files);
+        let res = await createBucketWithFiles(data.title, files);
         setResult(res);
+
+        res = await createNFT(res.bucketKey);
+        console.log("result", res);
 
         const card = {
           ...data,
@@ -105,6 +130,16 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
               onChange={handleChange}
               fullWidth
             />
+
+            <Input
+              name="imgUrl"
+              addonBefore={"Image"}
+              addonAfter={"A default will be used if blank"}
+              placeholder="Enter listing image or thumbnail url (optional)"
+              value={data.imgUrl}
+              onChange={handleChange}
+            />
+            <hr />
             <TextField
               label="Passphrase"
               value={data.passphrase}
@@ -113,10 +148,11 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
               fullWidth
             />
             <Input
+              name="ownerAddress"
               addonBefore={"Address"}
-              disabled
               placeholder="Payment Address: "
-              value={address}
+              onChange={handleChange}
+              value={data.ownerAddress}
             />
             <p>
               Note: In order to sell a stream or stream package, it must be
@@ -143,7 +179,7 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
                 </li>
               );
             })}
-            <h3>Listing datarmation</h3>
+            <h3>Listing information</h3>
             {Object.keys(data).map((k) => {
               return (
                 <li key={k}>
@@ -162,23 +198,15 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
     }
   };
 
-  const handleSend = async (event) => {
-    event.preventDefault();
-
-    const res = await createNFTToken({
-      ...data,
-      networkIdentifier: nodeInfo.networkIdentifier,
-      minFeePerByte: nodeInfo.minFeePerByte,
-    });
-    await api.sendTransactions(res.tx);
-  };
-
   return (
     <div className="content">
-      <h1>List new item in marketplace</h1>
+      <h1 className="centered heading">List new item in marketplace</h1>
       <Steps current={currentStep}>
         <Step title="Information" description="What are you listing?" />
-        <Step title="Upload" description="Add files and content for purchase." />
+        <Step
+          title="Upload"
+          description="Add files and content for purchase."
+        />
         <Step title="Done" description="View your listing." />
       </Steps>
       <div className="sell-area">{getBody()}</div>

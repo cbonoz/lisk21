@@ -3,6 +3,7 @@
 import { transactions, codec, cryptography } from "@liskhq/lisk-client";
 import { getFullAssetSchema, calcMinTxFee } from "../common";
 import { fetchAccountInfo } from "../../api";
+import { uuidv4 } from "..";
 
 export const createNFTTokenSchema = {
   $id: "lisk/create-nft-asset",
@@ -21,6 +22,22 @@ export const createNFTTokenSchema = {
       dataType: "string",
       fieldNumber: 3,
     },
+    description: {
+      dataType: "string",
+      fieldNumber: 4,
+    },
+    imgUrl: {
+      dataType: "string",
+      fieldNumber: 5,
+    },
+    ipfsUrl: {
+      dataType: "string",
+      fieldNumber: 6,
+    },
+    accessKey: {
+      dataType: "string",
+      fieldNumber: 7,
+    },
   },
 };
 
@@ -29,18 +46,25 @@ export const createNFTToken = async ({
   initValue,
   minPurchaseMargin,
   passphrase,
+  description,
+  imgUrl,
+  bucketKey,
   fee,
   networkIdentifier,
   minFeePerByte,
 }) => {
-  const { publicKey } = cryptography.getPrivateAndPublicKeyFromPassphrase(
-    passphrase
-  );
-  const address = cryptography.getAddressFromPassphrase(passphrase).toString("hex");
+  const { publicKey } =
+    cryptography.getPrivateAndPublicKeyFromPassphrase(passphrase);
+  const address = cryptography
+    .getAddressFromPassphrase(passphrase)
+    .toString("hex");
+
+  const accountInfo = await fetchAccountInfo(address);
+  console.log("info", accountInfo);
 
   const {
     sequence: { nonce },
-  } = await fetchAccountInfo(address);
+  } = accountInfo;
 
   const { id, ...rest } = transactions.signTransaction(
     createNFTTokenSchema,
@@ -52,6 +76,10 @@ export const createNFTToken = async ({
       senderPublicKey: publicKey,
       asset: {
         name,
+        description,
+        bucketKey,
+        imgUrl,
+        accessKey: uuidv4(),
         initValue: BigInt(transactions.convertLSKToBeddows(initValue)),
         minPurchaseMargin: parseInt(minPurchaseMargin),
       },

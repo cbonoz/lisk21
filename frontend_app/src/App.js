@@ -18,6 +18,8 @@ import logo from "./assets/logo.png";
 import "antd/dist/antd.css";
 import "./App.css";
 import { capitalize } from "./utils";
+import PurchaseNFTTokenDialog from "./components/dialogs/PurchaseNFTTokenDialog";
+import About from "./components/About";
 
 const { Header, Footer, Content } = Layout;
 
@@ -58,7 +60,7 @@ function App() {
     fetchData();
   }, []);
 
-  const openTransfer = () => setOpenDialog("TransferFundsDialog");
+  const openTransfer = () => setOpenDialog("PurchaseNFTTokenDialog");
 
   return (
     <Fragment>
@@ -72,7 +74,11 @@ function App() {
                 mode="horizontal"
               >
                 <Menu.Item key="/">
-                  <img src={logo} className="header-logo" />
+                  <img
+                    src={logo}
+                    className="header-logo"
+                    onClick={() => setOpenDialog("TransferFundsDialog")}
+                  />
                 </Menu.Item>
                 {ROUTES.map((r) => {
                   const link = `/${r}`;
@@ -101,10 +107,10 @@ function App() {
               <div className="content">
                 <Switch>
                   <Route path="/" exact>
-                    <HomePage />
+                    <About />
                   </Route>
                   <Route path="/search" exact>
-                    <Discover openTransfer={openTransfer} />
+                    <HomePage />
                   </Route>
                   <Route path="/sell" exact component={SellStream} />
                   <Route path="/access" exact component={Access} />
@@ -117,13 +123,6 @@ function App() {
             <Footer></Footer>
           </Layout>
 
-          <CreateNFTTokenDialog
-            open={openDialog === "CreateNFTTokenDialog"}
-            handleClose={() => {
-              setOpenDialog(null);
-            }}
-          />
-
           <CreateAccountDialog
             open={openDialog === "CreateAccountDialog"}
             handleClose={() => {
@@ -133,6 +132,14 @@ function App() {
 
           <TransferFundsDialog
             open={openDialog === "TransferFundsDialog"}
+            handleClose={() => {
+              setOpenDialog(null);
+            }}
+          />
+
+          <PurchaseNFTTokenDialog
+            open={openDialog === "PurchaseNFTTokenDialog"}
+            token={window.selectedItem || {}}
             handleClose={() => {
               setOpenDialog(null);
             }}

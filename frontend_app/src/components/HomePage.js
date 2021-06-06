@@ -16,7 +16,6 @@ function HomePage() {
 
   return (
     <Fragment>
-      <About />
       <Grid container spacing={4}>
         {NFTAccounts.map((item) => (
           <Grid item md={4}>

@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { NodeInfoContext } from "../../context";
 import { transferNFT } from "../../utils/transactions/transfer_nft";
 import * as api from "../../api";
+import { TRANSFER_TOKEN_INFO } from "../../utils/constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,13 +50,15 @@ export default function TransferNFTDialog(props) {
     props.handleClose();
   };
 
+  const title = `Transfer :${data.name}`;
+
+
   return (
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose}>
-        <DialogTitle id="alert-dialog-title">
-          {"Transfer NFT"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         <DialogContent>
+          <p>{TRANSFER_TOKEN_INFO}</p>
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
               label="Token Name"
