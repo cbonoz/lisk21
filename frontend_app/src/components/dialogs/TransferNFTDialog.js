@@ -50,8 +50,7 @@ export default function TransferNFTDialog(props) {
     props.handleClose();
   };
 
-  const title = `Transfer :${data.name}`;
-
+  const title = `Transfer: ${data.name}`;
 
   return (
     <Fragment>
@@ -61,14 +60,8 @@ export default function TransferNFTDialog(props) {
           <p>{TRANSFER_TOKEN_INFO}</p>
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
-              label="Token Name"
-              value={data.name}
-              name="name"
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
               label="Token ID"
+              disabled
               value={data.nftId}
               name="nftId"
               onChange={handleChange}

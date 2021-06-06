@@ -34,9 +34,13 @@ export const createNFTTokenSchema = {
       dataType: "string",
       fieldNumber: 6,
     },
-    accessKey: {
+    bucketKey: {
       dataType: "string",
       fieldNumber: 7,
+    },
+    accessKey: {
+      dataType: "string",
+      fieldNumber: 8,
     },
   },
 };

@@ -6,7 +6,7 @@ function Access(props) {
   const [key, setKey] = useState(
     "bafzbeieo6lg3cwiogtvhltqrrhui6chf4s6zxf44hysxkbqha5l66ijgoa"
   );
-  const [name, setName] = useState("Documents");
+  const [name, setName] = useState("Media Streams");
   const [loading, setLoading] = useState(false);
   const [links, setLinks] = useState({});
   const [error, setError] = useState("");
@@ -51,7 +51,7 @@ function Access(props) {
         Lookup
       </Button>
       <div>
-        {error && <p>{error}</p>}
+        {error && <p className="red">{error}</p>}
         {links.url && (
           <div>
             <a href={links.url} target="_blank">

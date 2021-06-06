@@ -71,41 +71,46 @@ export default function NFTToken(props) {
     parseFloat(transactions.convertBeddowsToLSK(value)) +
     parseFloat(minPurchaseMargin);
   return (
-    <Card>
-      <CardMedia
-        className={classes.media}
-        image={imgUrl || defaultImage}
-        title={name}
-      />
-      <CardContent>
-        <Typography variant="h6">{name}</Typography>
-        <Divider />
-        <dl className={classes.propertyList}>
-          <li>
-            <dt>Token ID</dt>
-            <dd>{props.item.id}</dd>
-          </li>
-          <li>
-            <dt>Minimum Purchase Price</dt>
-            <dd>{minPurchasePrice}</dd>
-          </li>
-          {!props.minimum && (
+    <span className="listing-card">
+      <Card>
+        <CardMedia
+          className={classes.media}
+          image={imgUrl || defaultImage}
+          title={name}
+        />
+        <CardContent>
+          <Typography variant="h6">{name}</Typography>
+          <Divider />
+          <dl className={classes.propertyList}>
+            {/* <li>
+              <dt>Token ID</dt>
+              <dd>{props.item.id}</dd>
+            </li> */}
             <li>
-              <dt>Current Owner</dt>
-              <dd>
-                <Link
-                  component={RouterLink}
-                  to={`/accounts/${base32UIAddress}`}
-                >
-                  {base32UIAddress}
-                </Link>
-              </dd>
+              <dt>Purchase Price</dt>
+              <dd>{minPurchasePrice}</dd>
             </li>
-          )}
-        </dl>
-        {/* <Typography variant="h6">NFT History</Typography> */}
-        {/* <Divider /> */}
-        {/* {props.item.tokenHistory.map((base32UIAddress) => (
+            <li>
+              <dt>Description</dt>
+              <dd>{props.item.description}</dd>
+            </li>
+            {!props.minimum && (
+              <li>
+                <dt>Owner</dt>
+                <dd>
+                  <Link
+                    component={RouterLink}
+                    to={`/accounts/${base32UIAddress}`}
+                  >
+                    {base32UIAddress.substr(0, 25)}...
+                  </Link>
+                </dd>
+              </li>
+            )}
+          </dl>
+          {/* <Typography variant="h6">NFT History</Typography> */}
+          {/* <Divider /> */}
+          {/* {props.item.tokenHistory.map((base32UIAddress) => (
           <dl className={classes.propertyList}>
             <li>
               <dd>
@@ -119,49 +124,50 @@ export default function NFTToken(props) {
             </li>
           </dl>
         ))} */}
-      </CardContent>
-      <CardActions>
-        <>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => {
-              setOpenTransfer(true);
-            }}
-          >
-            Transfer NFT
-          </Button>
-          <TransferNFTDialog
-            open={openTransfer}
-            handleClose={() => {
-              setOpenTransfer(false);
-            }}
-            token={props.item}
-          />
-        </>
-        {props.item.minPurchaseMargin > 0 ? (
+        </CardContent>
+        <CardActions>
           <>
             <Button
               size="small"
               color="primary"
               onClick={() => {
-                setOpenPurchase(true);
+                setOpenTransfer(true);
               }}
             >
-              Purchase NFT bundle
+              Transfer
             </Button>
-            <PurchaseNFTTokenDialog
-              open={openPurchase}
+            <TransferNFTDialog
+              open={openTransfer}
               handleClose={() => {
-                setOpenPurchase(false);
+                setOpenTransfer(false);
               }}
               token={props.item}
             />
           </>
-        ) : (
-          <Typography variant="body">Can't purchase this token</Typography>
-        )}
-      </CardActions>
-    </Card>
+          {props.item.minPurchaseMargin > 0 ? (
+            <>
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => {
+                  setOpenPurchase(true);
+                }}
+              >
+                Purchase
+              </Button>
+              <PurchaseNFTTokenDialog
+                open={openPurchase}
+                handleClose={() => {
+                  setOpenPurchase(false);
+                }}
+                token={props.item}
+              />
+            </>
+          ) : (
+            <Typography variant="body">Can't purchase this token</Typography>
+          )}
+        </CardActions>
+      </Card>
+    </span>
   );
 }

@@ -25,14 +25,24 @@
   min-height: 60vh;
 }
 
+.MuiGrid-item {
+  max-width: 400px;
+}
+
+.red {
+  color: red;
+  font-style: italic;
+}
+
 .sell-header {
   margin-bottom: 50px;
   margin-top: 20px;
 }
 
-.data-section.input {
-  margin-top: 20px;
+.data-section div {
   clear: both;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .ant-layout-footer {
@@ -68,6 +78,10 @@
   display: inline-grid;
 }
 
+.listing-card {
+  /* max-width: 300px; */
+}
+
 .dropzone {
   border: 3px dotted lightgray;
   padding: 20px;
@@ -77,8 +91,12 @@
 
 .ant-input {
   max-width: 400px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  /* margin-top: 5px;
+  margin-bottom: 5px; */
+}
+
+.home-page input {
+  margin-bottom: 20px;
 }
 
 .ant-input-group-wrapper {

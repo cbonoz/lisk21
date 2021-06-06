@@ -58,6 +58,7 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
     console.log("create", body);
     const res = await createNFTToken(body);
     await api.sendTransactions(res.tx);
+    return res;
   };
 
   const updateStep = async (offset) => {
@@ -73,8 +74,8 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
         let res = await createBucketWithFiles(data.title, files);
         setResult(res);
 
-        res = await createNFT(res.bucketKey);
-        console.log("result", res);
+        const nftResult = await createNFT(res.bucketKey);
+        console.log("result", nftResult);
 
         const card = {
           ...data,
@@ -110,14 +111,21 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
               fullWidth
             />
             <TextField
-              label="Initial Token value"
+              label="Description"
+              value={data.description}
+              name="description"
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              label="Initial Cost"
               value={data.initValue}
               name="initValue"
               onChange={handleChange}
               fullWidth
             />
             <TextField
-              label="Minimum Purchase Margin (0 - 100)"
+              label="Margin"
               value={data.minPurchaseMargin}
               name="minPurchaseMargin"
               onChange={handleChange}
@@ -140,19 +148,20 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
               onChange={handleChange}
             />
             <hr />
-            <TextField
-              label="Passphrase"
-              value={data.passphrase}
-              name="passphrase"
-              onChange={handleChange}
-              fullWidth
-            />
+
             <Input
               name="ownerAddress"
               addonBefore={"Address"}
               placeholder="Payment Address: "
               onChange={handleChange}
               value={data.ownerAddress}
+            />
+            <TextField
+              label="Passphrase"
+              value={data.passphrase}
+              name="passphrase"
+              onChange={handleChange}
+              fullWidth
             />
             <p>
               Note: In order to sell a stream or stream package, it must be

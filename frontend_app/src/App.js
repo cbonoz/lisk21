@@ -8,9 +8,7 @@ import TransactionsPage from "./components/TransactionsPage";
 import AccountPage from "./components/AccountPage";
 import CreateAccountDialog from "./components/dialogs/CreateAccountDialog";
 import TransferFundsDialog from "./components/dialogs/TransferFundsDialog";
-import CreateNFTTokenDialog from "./components/dialogs/CreateNFTTokenDialog";
-import { Menu, Layout } from "antd";
-import Discover from "./components/Discover";
+import { Menu, Layout, Modal } from "antd";
 import Access from "./components/Access";
 import SellStream from "./components/SellStream";
 import logo from "./assets/logo.png";
@@ -30,6 +28,8 @@ function App() {
     nodeInfoContextDefaultValue
   );
   const [openDialog, setOpenDialog] = useState(null);
+  const [purchasedItem, setPurchasedItem] = useState();
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [route, setRoute] = useState();
   useEffect(() => {
     const newRoute = window.location.pathname;
@@ -140,10 +140,29 @@ function App() {
           <PurchaseNFTTokenDialog
             open={openDialog === "PurchaseNFTTokenDialog"}
             token={window.selectedItem || {}}
-            handleClose={() => {
+            handleClose={(data) => {
               setOpenDialog(null);
+              setPurchasedItem(data);
+              setIsModalVisible(true);
             }}
           />
+
+          {purchasedItem && (
+            <Modal
+              title="Success"
+              visible={isModalVisible}
+              onOk={() => setIsModalVisible(false)}
+            >
+              <h5>Purchased item: </h5>
+              <p>{purchasedItem.title}</p>
+              <p>Access key: {purchasedItem.bucketKey}</p>
+              <br />
+              <p>Transaction: {purchasedItem.tx}</p>
+
+              <hr />
+              <p>Write these down, you will not be shown them again.</p>
+            </Modal>
+          )}
         </BrowserRouter>
       </NodeInfoContext.Provider>
     </Fragment>

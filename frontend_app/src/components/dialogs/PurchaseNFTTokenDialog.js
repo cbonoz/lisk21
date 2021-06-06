@@ -35,7 +35,7 @@ export default function PurchaseNFTTokenDialog(props) {
   const [data, setData] = useState({
     name: props.token.name,
     nftId: props.token.id,
-    purchaseValue: "",
+    purchaseValue: minPurchaseValue,
     fee: "",
     passphrase: "",
   });
@@ -54,7 +54,7 @@ export default function PurchaseNFTTokenDialog(props) {
       minFeePerByte: nodeInfo.minFeePerByte,
     });
     await api.sendTransactions(res.tx);
-    props.handleClose();
+    props.handleClose({data, tx: res.tx});
   };
 
   const title = `Purchase :${data.name}`;
@@ -77,6 +77,7 @@ export default function PurchaseNFTTokenDialog(props) {
             <TextField
               label="Purchase Value"
               value={data.purchaseValue}
+              disabled
               name="purchaseValue"
               onChange={handleChange}
               helperText={`Minimum purchase value: ${minPurchaseValue}`}
