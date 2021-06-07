@@ -3,7 +3,7 @@ import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
 import * as api from "./api";
 import { NodeInfoContext, nodeInfoContextDefaultValue } from "./context";
 
-import HomePage from "./components/HomePage";
+import HomePage from "./components/Home/HomePage";
 import TransactionsPage from "./components/TransactionsPage";
 import AccountPage from "./components/AccountPage";
 import CreateAccountDialog from "./components/dialogs/CreateAccountDialog";

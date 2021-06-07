@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
-import NFTToken from "./NFTToken";
+import NFTToken from "../NFTToken";
 import Fuse from "fuse.js";
 import { Grid } from "@material-ui/core";
-import { fetchAllNFTTokens } from "../api";
+import { fetchAllNFTTokens } from "../../api";
 import { Input } from "antd";
 
 function HomePage() {

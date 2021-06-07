@@ -3,11 +3,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { StreamDropzone } from "../StreamDropzone";
 import { Input, Button, Steps, Layout } from "antd";
 import { createBucketWithFiles } from "../../utils/bucket";
-import { addCard } from "../Discover/util";
 import * as api from "../../api";
 import { createNFTToken } from "../../utils/transactions/create_nft_token";
 import { TextField } from "@material-ui/core";
 import { NodeInfoContext } from "../../context";
+import { addCard } from "../Home/util";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -149,6 +149,19 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
             />
             <hr />
 
+            <p>
+              Note: When an NFT is purchased, the user will receive a unique
+              access key. This access key will be secured and enable delivery of
+              the uploaded contents via a special IPFS link.
+            </p>
+          </div>
+        );
+      case 1: // upload
+        return (
+          <div>
+            <h3>Add files</h3>
+            <StreamDropzone files={files} setFiles={setFiles} />
+            <h3>Payment information</h3>
             <Input
               name="ownerAddress"
               addonBefore={"Address"}
@@ -156,24 +169,14 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
               onChange={handleChange}
               value={data.ownerAddress}
             />
-            <TextField
+            <Input
               label="Passphrase"
+              addonBefore={"Passphrase"}
               value={data.passphrase}
               name="passphrase"
               onChange={handleChange}
               fullWidth
             />
-            <p>
-              Note: In order to sell a stream or stream package, it must be
-              finished and as a recording. This recording will be secured and
-              delivered via a special IPFS link.
-            </p>
-          </div>
-        );
-      case 1: // upload
-        return (
-          <div>
-            <StreamDropzone files={files} setFiles={setFiles} />
           </div>
         );
       case 2: // done
