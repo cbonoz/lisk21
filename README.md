@@ -25,13 +25,53 @@ Enables anyone to sell the rights to a group of documents or property as an owne
 - How to manage and create NFT's on Lisk
 - Integrate Lisk with an IPFS use case.
 
-## Testing
+### Running the project
+
+This app uses Lisk (for NFT generation) and Textile (for IPFS hosting/bundling).
+Textile hub key
+Define `REACT_APP_TEXTILE_KEY=XXX` in your environment
+`yarn && yarn start` for both the backend and front end.
+
+## Testing / User Flow
 
 - Start front end and back end projects.
 - Click create account
 - Send funds from genesis (note if the blockchain is restarted, you'll need to create a new account)
+- Upload a new bundle of documents, note the information on the newly created listing.
+- Return to the main marketplace home page - the NFT you created should be uploaded and available for purchase.
+- Purchase the NFT, you should receive an access key.
+- Enter the access key on the `Access` tab to receive an IPFS link to the purchased item/file collection.
 
-## What's next for LiskCollectible
+### Screenshots
 
+<p>Discover NFT's</p>
+<img src="./img/0.png" width=800 />
+<p>Create new marketplace account (Lisk credentials)</p>
+<img src="./img/2.png" width=800 />
+<p>Purchase complete</p>
+<img src="./img/1.png" width=800 />
+<p>Create new listing<p>
+<img src="./img/4.png" width=800 />
+<img src="./img/5.png" width=800 />
+<p>Access uploaded content</p>
+<img src="./img/3.png" width=800 />
+
+<p>Discover page</p>
+<img src="./img/stream.png" width=800 />
+<p>Upload and sell stream bundles</p>
+<img src="./img/sell.png" width=800 />
+<p>Purchase using unlock</p>
+<img src="./img/purchase.png" width=800 />
+<p>Access purchased ipfs bundles/streams</p>
+<img src="./img/access.png" width=800 />
+<p>Download</p>
+<img src="./img/contents.png" width=800 />
+<p>The graph index of Livepeer/streaming health</p>
+<img src="./img/graph.png" width=800 />
+
+<img src>
+
+<!-- ## What's next for LiskCollectible -->
+<!--
 - Project is open source and can be forked or extended.
-- Deployment with production credentials
+- Deployment with production credentials -->
