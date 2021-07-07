@@ -1,6 +1,6 @@
 ## LiskCollectible
 
-Turn any collection of files into a sellable NFT backed by Lisk.
+Enables anyone to sell the rights to a group of documents or property as an ownable NFT backed by Lisk.
 
 ## Inspiration
 
@@ -10,9 +10,12 @@ For any new product, the associated intellectual property will often have been t
 
 For written or digital media, it can be difficult to prove the ownership of a particular idea. With LiskCollectible, an NFT can be generated at a particular point in time wrapping a collection of documents or media - whoever owns the NFT can demonstrate proof of ownership over such content.
 
-## What it does
+### Running the project
 
-Enables anyone to sell the rights to a group of documents or property as an ownenable NFT backed by Lisk.
+This app uses Lisk (for NFT generation) and Textile (for IPFS hosting/bundling).
+Textile hub key
+Define `REACT_APP_TEXTILE_KEY=XXX` in your environment
+`yarn && yarn start` for both the backend and front end.
 
 ## How we built it
 
@@ -24,13 +27,6 @@ Enables anyone to sell the rights to a group of documents or property as an owne
 
 - How to manage and create NFT's on Lisk
 - Integrate Lisk with an IPFS use case.
-
-### Running the project
-
-This app uses Lisk (for NFT generation) and Textile (for IPFS hosting/bundling).
-Textile hub key
-Define `REACT_APP_TEXTILE_KEY=XXX` in your environment
-`yarn && yarn start` for both the backend and front end.
 
 ## Testing / User Flow
 
@@ -44,34 +40,15 @@ Define `REACT_APP_TEXTILE_KEY=XXX` in your environment
 
 ### Screenshots
 
-<p>Discover NFT's</p>
+<h2>Discover NFT's</h2>
 <img src="./img/0.png" width=800 />
-<p>Create new marketplace account (Lisk credentials)</p>
+<h2>Create new marketplace account (Lisk credentials)</h2>
 <img src="./img/2.png" width=800 />
-<p>Purchase complete</p>
+<h2>Purchase complete</h2>
 <img src="./img/1.png" width=800 />
-<p>Create new listing<p>
+<h2>Access uploaded content</h2>
 <img src="./img/4.png" width=800 />
+<h2>Create new listing<h2>
 <img src="./img/5.png" width=800 />
-<p>Access uploaded content</p>
+<h2>Access uploaded content</h2>
 <img src="./img/3.png" width=800 />
-
-<p>Discover page</p>
-<img src="./img/stream.png" width=800 />
-<p>Upload and sell stream bundles</p>
-<img src="./img/sell.png" width=800 />
-<p>Purchase using unlock</p>
-<img src="./img/purchase.png" width=800 />
-<p>Access purchased ipfs bundles/streams</p>
-<img src="./img/access.png" width=800 />
-<p>Download</p>
-<img src="./img/contents.png" width=800 />
-<p>The graph index of Livepeer/streaming health</p>
-<img src="./img/graph.png" width=800 />
-
-<img src>
-
-<!-- ## What's next for LiskCollectible -->
-<!--
-- Project is open source and can be forked or extended.
-- Deployment with production credentials -->
