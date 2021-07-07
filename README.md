@@ -1,5 +1,5 @@
-<p align="center" style="margin: 50px;">
-    <img src="./img/logo.png" width=600 />
+<p align="center" style="margin: 100px">
+    <img src="./img/logo.png" width=400 style="margin: 100px" />
 </p>
 ## LiskCollectible
 
