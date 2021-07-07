@@ -1,17 +1,18 @@
-<p align="center" style="margin: 100px">
-    <img src="./img/logo.png" width=400 style="margin: 100px" />
+<p align="center" style="margin-top: 50px; margin-bottom: 50px">
+    <img src="./img/logo.png" width=400 style="margin-top: 50px; margin-bottom: 50px"/>
 </p>
+
 ## LiskCollectible
 
 Enables anyone to sell the rights to a group of documents or property as an ownable NFT backed by Lisk.
 
 ## Inspiration
 
-There's been a lot of discussion around the value of NFT's and collecting/speculation purposes, but much less regarding NFTs for use in legal or digital content ownership.
+For any new product, the associated intellectual property will often have been touched by many actors: founders; employees; contractors; educational institutions; government funding agencies; third party licensors of technology and IP rights; and customers, including those involved in beta testing and pre-launch activities. For each of these actors, there should be written agreements in place to cover moral rights, retention of rights to background technology, any restrictions on exploiting the IP, and the scope of the licenses that are granted. In addition, joint ownership creates special challenges. 
 
-For any new product, the associated intellectual property will often have been touched by many actors: founders; employees; contractors; educational institutions; government funding agencies; third party licensors of technology and IP rights; and customers, including those involved in beta testing and pre-launch activities. For each of these actors, there should be written agreements in place to cover moral rights, retention of rights to background technology, any restrictions on exploiting the IP, and the scope of the licenses that are granted. In addition, joint ownership creates special challenges.
+Recently there's been a lot of discussion around the value of NFT's for collecting/speculation purposes, however NFTs can offer several more practical use cases.
 
-For written or digital media, it can be difficult to prove the ownership of a particular idea. With LiskCollectible, an NFT can be generated at a particular point in time wrapping a collection of documents or media - whoever owns the NFT can demonstrate proof of ownership over such content.
+For written or digital media, it can be difficult to prove the ownership of a particular idea. LiskCollectible is an app that enables uses to create NFT's that can be associated with a collection of documents or media - whoever owns the NFT can demonstrate proof of ownership over such content.
 
 ### Running the project
 
