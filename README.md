@@ -1,3 +1,6 @@
+<p align="center" style="margin: 50px;">
+    <img src="./img/logo.png" width=600 />
+</p>
 ## LiskCollectible
 
 Enables anyone to sell the rights to a group of documents or property as an ownable NFT backed by Lisk.
