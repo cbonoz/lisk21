@@ -3,7 +3,7 @@ const os = require("os");
 const path = require("path");
 const { cryptography, codec, db } = require("lisk-sdk");
 
-const DB_KEY_TRANSACTIONS = "nft:transactions2";
+const DB_KEY_TRANSACTIONS = "nft:transactions";
 const CREATENFT_ASSET_ID = 0;
 const TRANSFERNFT_ASSET_ID = 2;
 
