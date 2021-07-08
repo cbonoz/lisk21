@@ -19,6 +19,8 @@ Recently there's been a lot of discussion around the value of NFT's for collecti
 
 For written or digital media, it can be difficult to prove the ownership of a particular idea. LiskCollectible is an app that enables uses to create NFT's that can be associated with a collection of documents or media - whoever owns the NFT can demonstrate proof of ownership over such content.
 
+Recent NFT sale: https://www.theverge.com/2021/3/11/22325054/beeple-christies-nft-sale-cost-everydays-69-million
+
 ### Running the project
 
 This app uses Lisk (for NFT generation) and Textile (for IPFS hosting/bundling).
@@ -61,3 +63,16 @@ Define `REACT_APP_TEXTILE_KEY=XXX` in your environment
 <img src="./img/4.png" width=800 />
 <h2>Create new listing<h2>
 <img src="./img/5.png" width=800 />
+
+
+<!-- 
+Demo flow:
+* NFT growth: https://www.theverge.com/2021/3/11/22325054/beeple-christies-nft-sale-cost-everydays-69-million
+* LiskCollectible
+* Find existing bundles - these are examples
+* Search
+* Upload a new collection
+* Add custom file
+* Access
+* Download file after access
+-->
