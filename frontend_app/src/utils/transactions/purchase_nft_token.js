@@ -33,9 +33,8 @@ export const purchaseNFTToken = async ({
   networkIdentifier,
   minFeePerByte,
 }) => {
-  const { publicKey } = cryptography.getPrivateAndPublicKeyFromPassphrase(
-    passphrase
-  );
+  const { publicKey } =
+    cryptography.getPrivateAndPublicKeyFromPassphrase(passphrase);
   const address = cryptography.getAddressFromPassphrase(passphrase);
   const {
     sequence: { nonce },
@@ -52,7 +51,9 @@ export const purchaseNFTToken = async ({
       asset: {
         name,
         nftId: Buffer.from(nftId, "hex"),
-        purchaseValue: BigInt(transactions.convertLSKToBeddows(purchaseValue)),
+        purchaseValue: BigInt(
+          transactions.convertLSKToBeddows(purchaseValue.toString())
+        ),
       },
     },
     Buffer.from(networkIdentifier, "hex"),

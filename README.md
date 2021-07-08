@@ -1,13 +1,19 @@
+<br/>
+
 <p align="center" style="margin-top: 50px; margin-bottom: 50px">
     <img src="./img/logo.png" width=400 style="margin-top: 50px; margin-bottom: 50px"/>
 </p>
+<br/>
+<br/>
 
 ## LiskCollectible
 
 LiskCollectible is a prototype/demo application that enables users to sell groups of documents or digital property as ownable NFTs backed by Lisk.
+
+In progress.
 ## Inspiration
 
-For any new product, the associated intellectual property will often have been touched by many actors: founders; employees; contractors; educational institutions; government funding agencies; third party licensors of technology and IP rights; and customers, including those involved in beta testing and pre-launch activities. For each of these actors, there should be written agreements in place to cover moral rights, retention of rights to background technology, any restrictions on exploiting the IP, and the scope of the licenses that are granted. In addition, joint ownership creates special challenges. 
+For any new product, the associated intellectual property will often have been touched by many actors: founders; employees; contractors; educational institutions; government funding agencies; third party licensors of technology and IP rights; and customers, including those involved in beta testing and pre-launch activities. For each of these actors, there should be written agreements in place to cover moral rights, retention of rights to background technology, any restrictions on exploiting the IP, and the scope of the licenses that are granted. In addition, joint ownership creates special challenges.
 
 Recently there's been a lot of discussion around the value of NFT's for collecting/speculation purposes, however NFTs can offer several more practical use cases.
 
@@ -47,11 +53,11 @@ Define `REACT_APP_TEXTILE_KEY=XXX` in your environment
 <img src="./img/0.png" width=800 />
 <h2>Create new marketplace account (Lisk credentials)</h2>
 <img src="./img/2.png" width=800 />
+<h2>Upload files to be bundled</h2>
+<img src="./img/3.png" width=800 />
 <h2>Purchase complete</h2>
 <img src="./img/1.png" width=800 />
 <h2>Access uploaded content</h2>
 <img src="./img/4.png" width=800 />
 <h2>Create new listing<h2>
 <img src="./img/5.png" width=800 />
-<h2>Access uploaded content</h2>
-<img src="./img/3.png" width=800 />

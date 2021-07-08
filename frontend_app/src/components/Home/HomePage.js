@@ -35,15 +35,19 @@ function HomePage() {
   }, []);
 
   return (
-    <span className='home-page'>
-      <h2>Discover Collectibles</h2>
-      <Input
-        addonBefore={"Search"}
-        placeholder="Search NFTs"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <br />
+    <span className="home-page">
+      <div className="centered">
+        <h2>Discover Collectibles</h2>
+        <Input
+          addonBefore={"Search"}
+          placeholder="Search collections"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <br />
+        <br />
+      </div>
+      <div className="padding-small"></div>
       <Grid container spacing={4}>
         {cards.map((item) => (
           <Grid item md={4}>

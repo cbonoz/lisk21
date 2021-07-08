@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PurchaseNFTTokenDialog(props) {
+  const [purchaseData, setPurchaseData] = useState(props);
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
   const currentValue = parseFloat(
@@ -34,6 +35,7 @@ export default function PurchaseNFTTokenDialog(props) {
   const [data, setData] = useState({
     name: props.token.name,
     nftId: props.token.id,
+    bucketKey: props.token.bucketKey,
     purchaseValue: minPurchaseValue,
     fee: "",
     passphrase: "",
@@ -52,12 +54,42 @@ export default function PurchaseNFTTokenDialog(props) {
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,
     });
-    await api.sendTransactions(res.tx);
-    props.handleClose({ data, tx: res.tx });
+    const response = await api.sendTransactions(res.tx);
+    setPurchaseData(response);
   };
 
-  const title = `Complete purchase: ${data.name}`;
+  if (purchaseData) {
+    const title = `Purchase Complete!`;
+    return (
+      <Fragment>
+        <Dialog open={props.open} onBackdropClick={props.handleClose}>
+          <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+          <DialogContent>
+            <p>
+              You will only be shown the below access code once, make sure you
+              copy to a safe place.
+            </p>
+            <p>
+              Collection Name: <b>{data.name}</b>
+            </p>
+            Key: <b>{data.bucketKey}</b>
+            <br />
+            <br />
+            <br />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => props.handleClose({ data, tx: purchaseData.tx })}
+            >
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Fragment>
+    );
+  }
 
+  const title = `Purchase: ${data.name}`;
   return (
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose}>

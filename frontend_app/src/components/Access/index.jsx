@@ -6,7 +6,7 @@ function Access(props) {
   const [key, setKey] = useState(
     "bafzbeieo6lg3cwiogtvhltqrrhui6chf4s6zxf44hysxkbqha5l66ijgoa"
   );
-  const [name, setName] = useState("Media Streams");
+  const [name, setName] = useState("My file collection");
   const [loading, setLoading] = useState(false);
   const [links, setLinks] = useState({});
   const [error, setError] = useState("");

@@ -97,9 +97,8 @@ function SellBundle({ isLoggedIn, signer, provider, address, blockExplorer }) {
       setLoading(true);
 
       try {
-        let res = {};
-        // let res = await createBucketWithFiles(data.title, files);
-        // setResult(res);
+        let res = await createBucketWithFiles(data.title, files);
+        setResult(res);
 
         // TODO: if there is an error creating the NFT we should roll back the ipfs creation.
         // Currently the bucket key is required to create the NFT so additional logic is needed to support this.
