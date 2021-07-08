@@ -36,6 +36,22 @@ const registeredNFTTokensSchema = {
             dataType: "string",
             fieldNumber: 6,
           },
+          imgUrl: {
+            dataType: "string",
+            fieldNumber: 7,
+          },
+          ipfsUrl: {
+            dataType: "string",
+            fieldNumber: 8,
+          },
+          bucketKey: {
+            dataType: "string",
+            fieldNumber: 9,
+          },
+          accessKey: {
+            dataType: "string",
+            fieldNumber: 10,
+          },
         },
       },
     },
@@ -50,6 +66,10 @@ const createNFTToken = ({
   nonce,
   value,
   description,
+  imgUrl,
+  ipfsUrl,
+  bucketKey,
+  accessKey, // TODO: move to separate storage.
   minPurchaseMargin,
 }) => {
   const nonceBuffer = Buffer.alloc(8);
@@ -60,6 +80,10 @@ const createNFTToken = ({
   return {
     id,
     minPurchaseMargin,
+    imgUrl,
+    ipfsUrl,
+    bucketKey,
+    accessKey,
     name,
     description,
     ownerAddress,
