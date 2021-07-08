@@ -4,7 +4,7 @@
 
 ## LiskCollectible
 
-Enables anyone to sell the rights to a group of documents or property as an ownable NFT backed by Lisk.
+LiskCollectible is a prototype application that enables users to sell groups of documents or digital property as ownable NFTs backed by Lisk.
 
 ## Inspiration
 
@@ -29,8 +29,8 @@ Define `REACT_APP_TEXTILE_KEY=XXX` in your environment
 
 ## What we learned
 
-- How to manage and create NFT's on Lisk
-- Integrate Lisk with an IPFS use case.
+- How to manage and create NFT's using the Lisk SDK.
+- Tie a lisk NFT to a created bundle of documents hosted on IPFS.
 
 ## Testing / User Flow
 
