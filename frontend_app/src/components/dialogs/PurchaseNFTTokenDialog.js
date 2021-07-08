@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PurchaseNFTTokenDialog(props) {
-  const [purchaseData, setPurchaseData] = useState(props);
+  const [purchaseData, setPurchaseData] = useState();
   const nodeInfo = useContext(NodeInfoContext);
   const classes = useStyles();
   const currentValue = parseFloat(
