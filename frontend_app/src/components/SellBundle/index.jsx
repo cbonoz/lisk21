@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
 import { StreamDropzone } from "../StreamDropzone";
+import faker from "faker";
 import { Input, Button, Steps, Layout } from "antd";
 import { createBucketWithFiles } from "../../utils/bucket";
 import * as api from "../../api";
@@ -19,7 +20,7 @@ const EX_ADDRESS = "lsk3yp2ex874hnp3gruhk6mo6vaobnnwn94ok3ovt";
 
 const LAST_STEP = 2;
 
-function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
+function SellBundle({ isLoggedIn, signer, provider, address, blockExplorer }) {
   const [currentStep, setCurrentStep] = useState(0);
   const nodeInfo = useContext(NodeInfoContext);
 
@@ -30,11 +31,11 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
 
   const [files, setFiles] = useState([]);
   const [data, setData] = useState({
-    name: "cbono",
+    name: "My file collection",
     initValue: "100",
     minPurchaseMargin: "100",
     fee: "10",
-    description: "",
+    description: "A test bundle of files for purchase.",
     imgUrl: "",
     passphrase: EX_PHRASE,
     ownerAddress: EX_ADDRESS,
@@ -48,9 +49,34 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
     setData({ ...data, [event.target.name]: event.target.value });
   };
 
+  const validate = () => {
+    if (!data.name) {
+      return "Name is required";
+    } else if (
+      !data.minPurchaseMargin ||
+      isNaN(parseFloat(data.minPurchaseMargin))
+    ) {
+      return "Margin must be a number";
+    }
+
+    return "";
+  };
+
   const createNFT = async (bucketKey) => {
+    const err = validate();
+    if (err) {
+      alert(err);
+      return;
+    }
+
+    const nftData = { ...data };
+
+    if (!nftData.imgUrl) {
+      nftData["imgUrl"] = faker.image.sports();
+    }
+
     const body = {
-      ...data,
+      ...nftData,
       bucketKey,
       networkIdentifier: nodeInfo.networkIdentifier,
       minFeePerByte: nodeInfo.minFeePerByte,
@@ -71,10 +97,13 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
       setLoading(true);
 
       try {
-        let res = await createBucketWithFiles(data.title, files);
-        setResult(res);
+        let res = {};
+        // let res = await createBucketWithFiles(data.title, files);
+        // setResult(res);
 
-        const nftResult = await createNFT(res.bucketKey);
+        // TODO: if there is an error creating the NFT we should roll back the ipfs creation.
+        // Currently the bucket key is required to create the NFT so additional logic is needed to support this.
+        const nftResult = await createNFT(res.bucketKey || "");
         console.log("result", nftResult);
 
         const card = {
@@ -87,12 +116,12 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
       } catch (e) {
         console.error("error creating listing", e);
         alert(e.toString());
-        return;
-      } finally {
         setLoading(false);
+        return;
       }
     }
 
+    setLoading(false);
     console.log("update step", newStep);
     setCurrentStep(newStep);
   };
@@ -104,7 +133,8 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
           <div className="data-section">
             <h2 className="sell-header">What are you listing?</h2>
             <TextField
-              label="Name"
+              label="Name of listing"
+              placeholder={"Name of listing"}
               value={data.name}
               name="name"
               onChange={handleChange}
@@ -117,6 +147,7 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
               onChange={handleChange}
               fullWidth
             />
+
             <TextField
               label="Initial Cost"
               value={data.initValue}
@@ -124,15 +155,18 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
               onChange={handleChange}
               fullWidth
             />
+
             <TextField
-              label="Margin"
-              value={data.minPurchaseMargin}
               name="minPurchaseMargin"
+              label="Purchase margin (incremental cost to purchase)"
+              value={data.minPurchaseMargin}
+              // label={"Incremental cost for someone to purchase the NFT."}
               onChange={handleChange}
               fullWidth
             />
+
             <TextField
-              label="Fee"
+              label="Purchase fee"
               value={data.fee}
               name="fee"
               onChange={handleChange}
@@ -245,4 +279,4 @@ function SellStream({ isLoggedIn, signer, provider, address, blockExplorer }) {
   );
 }
 
-export default SellStream;
+export default SellBundle;

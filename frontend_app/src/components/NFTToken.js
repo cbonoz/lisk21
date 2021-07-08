@@ -16,6 +16,8 @@ import { transactions, cryptography, Buffer } from "@liskhq/lisk-client";
 import PurchaseNFTTokenDialog from "./dialogs/PurchaseNFTTokenDialog";
 import TransferNFTDialog from "./dialogs/TransferNFTDialog";
 
+const SHOW_TRANSFER = false;
+
 const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
@@ -126,24 +128,26 @@ export default function NFTToken(props) {
         ))} */}
         </CardContent>
         <CardActions>
-          <>
-            <Button
-              size="small"
-              color="primary"
-              onClick={() => {
-                setOpenTransfer(true);
-              }}
-            >
-              Transfer
-            </Button>
-            <TransferNFTDialog
-              open={openTransfer}
-              handleClose={() => {
-                setOpenTransfer(false);
-              }}
-              token={props.item}
-            />
-          </>
+          {SHOW_TRANSFER && (
+            <>
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => {
+                  setOpenTransfer(true);
+                }}
+              >
+                Transfer
+              </Button>
+              <TransferNFTDialog
+                open={openTransfer}
+                handleClose={() => {
+                  setOpenTransfer(false);
+                }}
+                token={props.item}
+              />
+            </>
+          )}
           {props.item.minPurchaseMargin > 0 ? (
             <>
               <Button

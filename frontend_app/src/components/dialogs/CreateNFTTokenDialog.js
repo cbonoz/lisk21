@@ -39,6 +39,7 @@ export default function CreateNFTTokenDialog(props) {
   const handleSend = async (event) => {
     event.preventDefault();
 
+    // https://lisk.com/documentation/lisk-sdk/guides/app-development/frontend.html#send-transaction
     const res = await createNFTToken({
       ...data,
       networkIdentifier: nodeInfo.networkIdentifier,

@@ -1,9 +1,5 @@
 const { BaseAsset } = require("lisk-sdk");
-const {
-  getAllNFTTokens,
-  setAllNFTTokens,
-  createNFTToken,
-} = require("../nft");
+const { getAllNFTTokens, setAllNFTTokens, createNFTToken } = require("../nft");
 
 // 1.extend base asset to implement your custom asset
 class CreateNFTAsset extends BaseAsset {
@@ -28,15 +24,37 @@ class CreateNFTAsset extends BaseAsset {
         dataType: "string",
         fieldNumber: 3,
       },
+      description: {
+        dataType: "string",
+        fieldNumber: 4,
+      },
+      imgUrl: {
+        dataType: "string",
+        fieldNumber: 5,
+      },
+      ipfsUrl: {
+        dataType: "string",
+        fieldNumber: 6,
+      },
+      bucketKey: {
+        dataType: "string",
+        fieldNumber: 7,
+      },
+      accessKey: {
+        dataType: "string",
+        fieldNumber: 8,
+      },
     },
   };
-  validate({asset}) {
+  validate({ asset }) {
     if (asset.initValue <= 0) {
       throw new Error("NFT init value is too low.");
     } else if (asset.minPurchaseMargin < 0 || asset.minPurchaseMargin > 100) {
-      throw new Error("The NFT minimum purchase value needs to be between 0 and 100.");
+      throw new Error(
+        "The NFT minimum purchase value needs to be between 0 and 100."
+      );
     }
-  };
+  }
   async apply({ asset, stateStore, reducerHandler, transaction }) {
     // 4.verify if sender has enough balance
     const senderAddress = transaction.senderAddress;
@@ -44,11 +62,9 @@ class CreateNFTAsset extends BaseAsset {
 
     // 5.create nft
     const nftToken = createNFTToken({
-      name: asset.name,
       ownerAddress: senderAddress,
       nonce: transaction.nonce,
-      value: asset.initValue,
-      minPurchaseMargin: asset.minPurchaseMargin,
+      ...asset
     });
 
     // 6.update sender account with unique nft id

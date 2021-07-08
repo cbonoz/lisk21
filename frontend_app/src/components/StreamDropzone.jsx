@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { bytesToSize } from "./Discover/util";
+import { bytesToSize } from "./Home/util";
 
 const thumbsContainer = {
   display: "flex",
@@ -37,19 +37,19 @@ const img = {
 
 export function StreamDropzone({ files, setFiles }) {
   const { getRootProps, getInputProps } = useDropzone({
-    onDrop: acceptedFiles => {
+    onDrop: (acceptedFiles) => {
       console.log("files", acceptedFiles);
       setFiles(
-        acceptedFiles.map(file =>
+        acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
-          }),
-        ),
+          })
+        )
       );
     },
   });
 
-  const thumbs = files.map(file => (
+  const thumbs = files.map((file) => (
     <div style={thumb} key={file.name}>
       <div style={thumbInner}>
         <p>
@@ -70,9 +70,9 @@ export function StreamDropzone({ files, setFiles }) {
   useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      files.forEach(file => URL.revokeObjectURL(file.preview));
+      files.forEach((file) => URL.revokeObjectURL(file.preview));
     },
-    [files],
+    [files]
   );
 
   return (

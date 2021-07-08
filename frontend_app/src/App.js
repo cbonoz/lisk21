@@ -10,7 +10,7 @@ import CreateAccountDialog from "./components/dialogs/CreateAccountDialog";
 import TransferFundsDialog from "./components/dialogs/TransferFundsDialog";
 import { Menu, Layout, Modal } from "antd";
 import Access from "./components/Access";
-import SellStream from "./components/SellStream";
+import SellBundle from "./components/SellBundle";
 import logo from "./assets/logo.png";
 
 import "antd/dist/antd.css";
@@ -112,7 +112,7 @@ function App() {
                   <Route path="/search" exact>
                     <HomePage />
                   </Route>
-                  <Route path="/sell" exact component={SellStream} />
+                  <Route path="/sell" exact component={SellBundle} />
                   <Route path="/access" exact component={Access} />
 
                   <Route path="/accounts/:address" component={AccountPage} />

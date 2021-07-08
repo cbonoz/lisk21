@@ -29,8 +29,7 @@ export default function PurchaseNFTTokenDialog(props) {
     transactions.convertBeddowsToLSK(props.token.value || "0")
   );
   const minPurchaseMargin = parseFloat(props.token.minPurchaseMargin || "0");
-  const minPurchaseValue =
-    currentValue + (currentValue * minPurchaseMargin) / 100.0;
+  const minPurchaseValue = currentValue + minPurchaseMargin;
 
   const [data, setData] = useState({
     name: props.token.name,
@@ -54,16 +53,17 @@ export default function PurchaseNFTTokenDialog(props) {
       minFeePerByte: nodeInfo.minFeePerByte,
     });
     await api.sendTransactions(res.tx);
-    props.handleClose({data, tx: res.tx});
+    props.handleClose({ data, tx: res.tx });
   };
 
-  const title = `Purchase :${data.name}`;
+  const title = `Complete purchase: ${data.name}`;
 
   return (
     <Fragment>
       <Dialog open={props.open} onBackdropClick={props.handleClose}>
         <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         <DialogContent>
+          {data.description && <p>Description: {data.description}</p>}
           <p>{PURCHASE_TOKEN_INFO}</p>
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
@@ -80,7 +80,7 @@ export default function PurchaseNFTTokenDialog(props) {
               disabled
               name="purchaseValue"
               onChange={handleChange}
-              helperText={`Minimum purchase value: ${minPurchaseValue}`}
+              helperText={`Minimum purchase value: ${data.purchaseValue}`}
               fullWidth
             />
             <TextField

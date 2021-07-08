@@ -1,7 +1,7 @@
 {
-  "name": "lisk-nft-demo",
+  "name": "lisk-collectible",
   "version": "1.0.0",
-  "description": "A blockchain demo app for creating NFT tokens",
+  "description": "A blockchain demo app for selling bundles of documents backed by NFT's",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

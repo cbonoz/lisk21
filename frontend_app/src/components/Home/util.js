@@ -1,7 +1,5 @@
 import faker from "faker";
 
-export const LOCK_ADDRESS = "0xf0d9b8844Aa1f1568d451b20CfA88A39C6e38e17";
-
 faker.seed(124);
 
 export const createCard = (
