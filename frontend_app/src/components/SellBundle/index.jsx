@@ -255,7 +255,7 @@ function SellBundle({ isLoggedIn, signer, provider, address, blockExplorer }) {
         <Step title="Done" description="View your listing." />
       </Steps>
       <div className="sell-area">{getBody()}</div>
-      {currentStep !== 0 && (
+      {currentStep !== 0 && currentStep !== 2 && (
         <Button
           disabled={loading}
           type="primary"

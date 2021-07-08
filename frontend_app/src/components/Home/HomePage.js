@@ -17,7 +17,7 @@ function HomePage() {
     }
 
     const fuse = new Fuse(NFTAccounts, {
-      keys: ["title", "description"],
+      keys: ["name", "description"],
     });
 
     const results = fuse.search(query);

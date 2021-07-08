@@ -48,13 +48,19 @@ export default function PurchaseNFTTokenDialog(props) {
 
   const handleSend = async (event) => {
     event.preventDefault();
-
-    const res = await purchaseNFTToken({
-      ...data,
-      networkIdentifier: nodeInfo.networkIdentifier,
-      minFeePerByte: nodeInfo.minFeePerByte,
-    });
-    const response = await api.sendTransactions(res.tx);
+    let response;
+    try {
+      const res = await purchaseNFTToken({
+        ...data,
+        networkIdentifier: nodeInfo.networkIdentifier,
+        minFeePerByte: nodeInfo.minFeePerByte,
+      });
+      response = await api.sendTransactions(res.tx);
+    } catch (e) {
+      console.error(e);
+      alert("Error purchasing bundle: " + e.toString());
+      return;
+    }
     setPurchaseData(response);
   };
 

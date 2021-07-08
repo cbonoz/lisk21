@@ -64,8 +64,10 @@ class CreateNFTAsset extends BaseAsset {
     const nftToken = createNFTToken({
       ownerAddress: senderAddress,
       nonce: transaction.nonce,
-      ...asset
+      ...asset,
     });
+
+    console.log("create", nftToken);
 
     // 6.update sender account with unique nft id
     senderAccount.nft.ownNFTs.push(nftToken.id);
