@@ -77,7 +77,7 @@ const createNFTToken = ({
   const seed = Buffer.concat([ownerAddress, nonceBuffer]);
   const id = cryptography.hash(seed);
 
-  return {
+  const token = {
     id,
     minPurchaseMargin,
     imgUrl,
@@ -89,6 +89,10 @@ const createNFTToken = ({
     ownerAddress,
     value,
   };
+
+  console.log("create", token);
+
+  return token;
 };
 
 const getAllNFTTokens = async (stateStore) => {

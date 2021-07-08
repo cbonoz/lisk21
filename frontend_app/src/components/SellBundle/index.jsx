@@ -72,7 +72,7 @@ function SellBundle({ isLoggedIn, signer, provider, address, blockExplorer }) {
     const nftData = { ...data };
 
     if (!nftData.imgUrl) {
-      nftData["imgUrl"] = faker.image.sports();
+      nftData.imgUrl = faker.image.sports();
     }
 
     const body = {
