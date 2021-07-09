@@ -11,6 +11,7 @@
 LiskCollectible is a prototype/demo application that enables users to sell groups of documents or digital property as ownable NFTs backed by Lisk.
 
 In progress.
+
 ## Inspiration
 
 For any new product, the associated intellectual property will often have been touched by many actors: founders; employees; contractors; educational institutions; government funding agencies; third party licensors of technology and IP rights; and customers, including those involved in beta testing and pre-launch activities. For each of these actors, there should be written agreements in place to cover moral rights, retention of rights to background technology, any restrictions on exploiting the IP, and the scope of the licenses that are granted. In addition, joint ownership creates special challenges.
@@ -23,10 +24,16 @@ Recent NFT sale: https://www.theverge.com/2021/3/11/22325054/beeple-christies-nf
 
 ### Running the project
 
-This app uses Lisk (for NFT generation) and Textile (for IPFS hosting/bundling).
-Textile hub key
-Define `REACT_APP_TEXTILE_KEY=XXX` in your environment
-`yarn && yarn start` for both the backend and front end.
+- This app uses Lisk (for NFT generation) and Textile (for IPFS hosting/bundling).
+- To host files on IPFS a <a href="https://textile.io/" target="_blank">Textile</a> hub key is needed. Define `REACT_APP_TEXTILE_KEY=XXX` in your environment.
+<p>
+To run the project
+`yarn && yarn start` for both the backend and front end projects.
+</p>
+<p>
+If the backend doesn't reload - you may need to kill the lisk blockchain process on shutdown before restarting via `yarn start`.
+To do this run `ps` and find/kill the `lisk-collectible` process.
+</p>
 
 ## How we built it
 
@@ -64,8 +71,7 @@ Define `REACT_APP_TEXTILE_KEY=XXX` in your environment
 <h2>Create new listing<h2>
 <img src="./img/5.png" width=800 />
 
-
-<!-- 
+<!--
 Demo flow:
 * NFT growth: https://www.theverge.com/2021/3/11/22325054/beeple-christies-nft-sale-cost-everydays-69-million
 * LiskCollectible
