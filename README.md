@@ -12,6 +12,8 @@ LiskCollectible is a prototype/demo application that enables users to sell group
 
 In progress.
 
+Original demo video/walkthrough: https://www.youtube.com/watch?v=0K7bjZpo4yo
+
 ## Inspiration
 
 For any new product, the associated intellectual property will often have been touched by many actors: founders; employees; contractors; educational institutions; government funding agencies; third party licensors of technology and IP rights; and customers, including those involved in beta testing and pre-launch activities. For each of these actors, there should be written agreements in place to cover moral rights, retention of rights to background technology, any restrictions on exploiting the IP, and the scope of the licenses that are granted. In addition, joint ownership creates special challenges.
