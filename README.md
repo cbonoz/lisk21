@@ -27,8 +27,7 @@ Recent NFT sale: https://www.theverge.com/2021/3/11/22325054/beeple-christies-nf
 - This app uses Lisk (for NFT generation) and Textile (for IPFS hosting/bundling).
 - To host files on IPFS a <a href="https://textile.io/" target="_blank">Textile</a> hub key is needed. Define `REACT_APP_TEXTILE_KEY=XXX` in your environment.
 <p>
-To run the project
-`yarn && yarn start` for both the backend and front end projects.
+To run the project use `yarn && yarn start` for both the backend and front end projects.
 </p>
 <p>
 If the backend doesn't reload - you may need to kill the lisk blockchain process on shutdown before restarting via `yarn start`.
