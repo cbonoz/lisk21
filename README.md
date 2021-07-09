@@ -30,8 +30,8 @@ Recent NFT sale: https://www.theverge.com/2021/3/11/22325054/beeple-christies-nf
 To run the project use `yarn && yarn start` for both the backend and front end projects.
 </p>
 <p>
-If the backend doesn't reload - you may need to kill the lisk blockchain process on shutdown before restarting via `yarn start`.
-To do this run `ps` and find/kill the `lisk-collectible` process.
+If the backend doesn't reload, you may need to kill the lisk blockchain process on shutdown before restarting via `yarn start`.
+To do this, run `ps` and find/kill the `lisk-collectible` process.
 </p>
 
 ## How we built it
